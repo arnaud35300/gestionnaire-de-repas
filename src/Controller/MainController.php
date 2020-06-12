@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main", methods={"GET"})
+     * @Route("/", name="home", methods={"GET"})
      */
     public function home()
     {
