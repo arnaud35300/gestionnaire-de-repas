@@ -24,11 +24,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -38,6 +33,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=50)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $role;
 
     public function getId(): ?int
     {
@@ -66,21 +67,30 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
+     /**
+     * ? The mandatory abstract method from UserInterface.
+     * ! @see $this->getRole()
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        return [$this->getRole()->getName()];
+    }
 
-        return array_unique($roles);
+    public function getRole(): ?Role
+    {
+        return $this->role;
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function setRole(?Role $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
