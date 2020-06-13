@@ -12,12 +12,9 @@ class UserAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name')
             ->add('email')
             ->add('password')
-            ->add('name')
-            ->add('updatedAt')
-            ->add('createdAt')
-            ->add('role')
         ;
     }
 
