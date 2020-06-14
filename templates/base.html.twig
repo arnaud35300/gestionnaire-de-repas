@@ -24,7 +24,9 @@
 		{% endblock %}
 		{% block body %}{% endblock %}
 
-		{% block javascripts_header %}{% endblock %}
+		{% block javascripts_header %}
+			<script src="{{ asset('assets/js/menu.js') }}"></script>
+		{% endblock %}
 
 		{% block javascripts %}{% endblock %}
 	</body>
