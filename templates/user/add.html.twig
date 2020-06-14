@@ -1,15 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!
-{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	<button class="btn btn-lg btn-primary" type="submit">
-		Sign up
-	</button>
-	{{ form_end(form) }}
+	<div class="flex h-screen">
+		{% set button_link = 'login' %}
+		{% set button_content = 'Already register?' %}
+		{% include "layouts/_presentation.html.twig" %}
+	</div>
 
-{% endblock %}
+	<div class="flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Create account</p>
+
+			<p class="" href="{{ path('forgot_password_request') }}">Already have an account?
+				<a class="text-blue-400" href="{{ path('user_add') }}">Register</a>
+			</p>
+
+			{# !form #}
+			{{ form_start(form) }}
+
+			<div class="flex flex-col my-4">
+				{{ form_label(form.name, 'Firstname', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(form.name, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(form.name) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(form.name) }}</div>
+				{% endif %}
+			</div>
+
+			<div class="flex flex-col my-4">
+				{{ form_label(form.email, 'Email', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(form.email, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(form.email) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(form.email) }}</div>
+				{% endif %}
+			</div>
+
+			<div class="flex flex-col my-4">
+				{{ form_label(form.email, 'Password', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(form.password, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(form.password) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(form.password) }}</div>
+				{% endif %}
+			</div>
+
+			<div class="checkbox mb-3">
+				{{ form_widget(form.agree_terms, {'attr': {'class': 'text-gray-600'}}) }}
+				{{ form_label(form.agree_terms, 'I agree to the FoodBook Software and Service Agreement', { 'label_attr': {'class': ''}}) }}
+
+				{% if form_errors(form.agree_terms) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(form.agree_terms) }}</div>
+				{% endif %}
+			</div>
+
+			<div class="flex justify-end w-full">
+				<button class="btn hover:btn my-3" type="submit">
+					Sign In
+				</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>{% endblock %}
