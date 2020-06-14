@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route("/user", name="user")
@@ -21,7 +22,9 @@ class UserController extends AbstractController
      */
     public function add(
         Request $request,
-        UserPasswordEncoderInterface $encoder)
+        UserPasswordEncoderInterface $encoder,
+        LoginFormAuthenticator $authenticator,
+        GuardAuthenticatorHandler $guardHandler)
     {
         $user = new User();
 
@@ -46,9 +49,13 @@ class UserController extends AbstractController
             
             $this->addFlash('success', 'Welcome ' . $user->getName());
 
-            // login automatically new user
-
-            return $this->redirectToRoute('home');
+            // login user
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                'home'
+            );
         }
 
         return $this->render('user/add.html.twig', [
