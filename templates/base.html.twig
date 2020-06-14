@@ -2,7 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+		{# fonts #}
+        <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+        <title>
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
@@ -10,7 +14,7 @@
 			{{ encore_entry_link_tags('tailwind') }}
 		{% endblock %}
 	</head>
-	<body>
+	<body class="font-global">
 		{% block flash %}
 			{% include "layouts/_flash_message.html.twig" %}
 		{% endblock %}
