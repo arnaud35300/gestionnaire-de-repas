@@ -15,10 +15,17 @@
 		{% endblock %}
 	</head>
 	<body class="font-global">
+
+		{% block header %}
+			{% include "layouts/_header.html.twig" %}
+		{% endblock %}
 		{% block flash %}
 			{% include "layouts/_flash_message.html.twig" %}
 		{% endblock %}
 		{% block body %}{% endblock %}
+
+		{% block javascripts_header %}{% endblock %}
+
 		{% block javascripts %}{% endblock %}
 	</body>
 </html>
