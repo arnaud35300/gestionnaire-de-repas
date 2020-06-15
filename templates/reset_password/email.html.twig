@@ -1,11 +1,22 @@
-<h1>Hi!</h1>
+{% extends 'visitor_base.html.twig' %}
+{% block title %}Password Reset Email Sent{% endblock %}
 
-<p>
-    To reset your password, please visit
-    <a href="{{ url('reset_password', {token: resetToken.token}) }}">here</a>
-    This link will expire in {{ tokenLifetime|date('g') }} hour(s)..
-</p>
+{% block body %}
+	<div class="flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Step 2 - Click to the link</p>
 
-<p>
-    Cheers!
-</p>
+            <p class="my-3 text-center text-gray-600 text-lg">To reset your password, please visit <a class="text-blue-500 font-bold" href="{{ url('reset_password', {token: resetToken.token}) }}">here</a>.</p>
+            <p class="my-3 text-center text-gray-600 text-lg">This link will expire in <span class="text-blue-500 font-bold">{{ tokenLifetime|date('g') }}</span> hour(s).</p>
+
+
+			<div class="flex justify-end w-full">
+				<a  href="{{ url('reset_password', {token: resetToken.token}) }}" class="btn hover:btn my-3" type="submit">
+					Reset your password
+				</a>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}
