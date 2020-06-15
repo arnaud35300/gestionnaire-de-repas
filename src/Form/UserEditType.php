@@ -18,7 +18,6 @@ class UserEditType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Joe'
                 ],
@@ -27,7 +26,7 @@ class UserEditType extends AbstractType
                         'message' => 'Please enter a firstname'
                     ]),
                     new Length([
-                        'min' => 1,
+                        'min' => 2,
                         'minMessage' => 'Your firstname should be at least {{ limit }} characters',
                         'max' => 40,
                         'maxMessage' => 'Your firstname must be shorter than {{ limit }} characters'

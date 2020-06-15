@@ -104,7 +104,7 @@ class UserController extends AbstractController
 
                 if (count($errors) > 0) {
 
-                    foreach ($errros as $error)
+                    foreach ($errors as $error)
                         $this->addFlash('error', $error);
                     
                     return $this->redirectToRoute('user_edit');

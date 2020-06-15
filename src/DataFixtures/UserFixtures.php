@@ -27,7 +27,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
     {
         $user = new User();
 
-        $user->setName('user')
+        $user
+            ->setName('user')
             ->setEmail('user@user.com')
             ->setPath('user_profile.svg')
             ->setPassword(
@@ -37,7 +38,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
             ->setCreatedAt(new \DateTime());
 
         $admin = new User();
-        $admin->setName('admin')
+        $admin
+            ->setName('admin')
             ->setEmail('admin@admin.com')
             ->setPath('user_profile.svg')
             ->setPassword(
