@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserAddType;
-use App\Form\UserEditType;
-use App\Security\LoginFormAuthenticator;
 use App\Service\Uploader;
+use App\Form\UserEditType;
+use App\Form\ChangePasswordFormType;
+use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -106,7 +110,7 @@ class UserController extends AbstractController
 
                     foreach ($errors as $error)
                         $this->addFlash('error', $error);
-                    
+
                     return $this->redirectToRoute('user_edit');
                 }
             }
@@ -125,6 +129,43 @@ class UserController extends AbstractController
 
         return $this->render(
             'user/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user
+            ]
+        );
+    }
+
+    /**
+     * @Route("/password", name="_edit_password", methods={"GET","POST"})
+     */
+    public function editPassword(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(ChangePasswordFormType::class, null, ['reset_password' => true]);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+
+            $user->setPassword(
+                $encoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            )->setUpdatedAt(new \DateTime());
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Your password has been changed');
+
+            return $this->redirectToRoute('user_profile');
+        }
+
+        return $this->render(
+            'user/edit_password.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user
