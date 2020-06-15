@@ -54,7 +54,7 @@
                 <p class="my-4 text-center text-black text-xl underline">Opinion</p>  
                 <p class="my-3 text-center text-gray-600 text-lg">Your opinion is very important for us, that's why you can send us a <span class="text-blue-500 font-bold">message</span>!</p>                
             
-                <form name="message-form" method="post" class="">
+                <form id="message-form" method="post">
 
                      <div class="flex flex-col">
                         <label for="message" class="text-gray-700 text-lg">Write here</label>
@@ -78,7 +78,7 @@
                 <p class="my-4 text-center text-black text-xl underline">Help</p>  
                 <p class="my-3 text-center text-gray-600 text-lg">You are lost? you need help? Did you break the site? Don't worry, we're here for you. Write your <span class="text-blue-500 font-bold">concerns</span> above and we will respond to them very soon!</p>                
             
-                <form name="contact-form" method="post" class="">
+                <form id="contact-form" method="post" class="">
 
                     <div class="flex flex-col">
                         <label for="message" class="text-gray-700 text-lg">Write here</label>
@@ -99,5 +99,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('asset/js/profile.js') }}"></script>
+    <script src="{{ asset('assets/js/profile.js') }}"></script>
 {% endblock %}
