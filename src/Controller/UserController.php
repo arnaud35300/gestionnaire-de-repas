@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UserAddType;
 use App\Form\UserEditType;
 use App\Security\LoginFormAuthenticator;
+use App\Service\Uploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -83,7 +84,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit", name="_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request)
+    public function edit(Request $request, Uploader $uploader)
     {
         $user = $this->getUser();
 
@@ -94,17 +95,24 @@ class UserController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             $file = $form['image']->getData();
-
             //TODO make service
             if ($file !== null) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/data/user_profile_pictures';
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move($destination, $filename);
-                
-                if ($user->getPath() !== 'user_profile.svg')
-                    unlink($destination . '/' . $user->getPath());
 
-                $user->setPath($filename);
+                $path = $this->getParameter('kernel.project_dir') . '/public/data/user_profile_pictures';
+
+                $errors = $uploader->upload($file, $path, $user);
+
+                if (count($errors) > 0) {
+
+                    foreach ($errros as $error)
+                        $this->addFlash('error', $error);
+                    
+                    return $this->redirectToRoute('user_edit');
+                }
+                // $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                // $file->move($destination, $filename);
+                
+                // $user->setPath($filename);
             }
 
             //TODO make events listener

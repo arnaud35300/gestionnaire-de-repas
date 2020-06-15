@@ -28,6 +28,9 @@
 				{% if form_errors(form.image) is not same as('') %}
 					<div class="alert alert-danger mx-1">{{ form_errors(form.image) }}</div>
 				{% endif %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger mx-1">{{ message }}</div>
+                {% endfor %}
 			</div>
 
 			<div class="flex justify-end w-full">
