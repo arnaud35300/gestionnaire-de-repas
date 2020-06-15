@@ -1,7 +1,7 @@
 <div class="flex flex-col p-4">
 
 	<div class="flex justify-center items-center">
-		<img src="https://image.flaticon.com/icons/svg/194/194938.svg" alt="avatar picture" class="w-3/4 lg:w-2/4 border-2 rounded-full border-black m-4"></img>
+		<img src="{{ asset('data/user_profile_pictures/' ~ user.path)}}" alt="avatar picture" class="w-3/4 lg:w-2/4 border-2 rounded-full border-black m-4"></img>
 </div>
 
 <h2 class="text-2xl font-bold text-black text-center">{{ user.name|capitalize }}</h2>

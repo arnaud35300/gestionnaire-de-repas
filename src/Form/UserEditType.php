@@ -38,7 +38,6 @@ class UserEditType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    
                 ]
             ]);
     }

@@ -83,18 +83,29 @@ class UserController extends AbstractController
     /**
      * @Route("/edit", name="_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request) {
+    public function edit(Request $request)
+    {
         $user = $this->getUser();
 
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-
-            dump($form);
-
-
             $manager = $this->getDoctrine()->getManager();
+
+            $file = $form['image']->getData();
+
+            //TODO make service
+            if ($file !== null) {
+                $destination = $this->getParameter('kernel.project_dir') . '/public/data/user_profile_pictures';
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($destination, $filename);
+                
+                if ($user->getPath() !== 'user_profile.svg')
+                    unlink($destination . '/' . $user->getPath());
+
+                $user->setPath($filename);
+            }
 
             //TODO make events listener
             $user->setUpdatedAt(new \DateTime());
@@ -105,7 +116,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Your informations has been updated ');
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('user_profile');
         }
 
         return $this->render(
