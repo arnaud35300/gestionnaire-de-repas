@@ -30,7 +30,7 @@
 
             <div class="">
 			    <a href="{{ path('user_profile')}}" alt="your profile" title="your profile">
-                    <img src="https://image.flaticon.com/icons/svg/194/194938.svg" alt="avatar picture" class=" mr-5 w-10 border rounded-full border-white hover:border-transparent  mt-4 lg:mt-0 cursor-pointer"></img>
+                    <img src="{{ asset('data/user_profile_pictures/' ~ user.path)}}" alt="avatar picture" class=" mr-5 w-10 border rounded-full border-white hover:border-transparent  mt-4 lg:mt-0 cursor-pointer"></img>
 			    </a>
             </div>
 				<p><a href="{{ path('logout') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a></p>
