@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserAddType;
+use App\Form\UserEditType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route("/user", name="user")
@@ -75,6 +76,43 @@ class UserController extends AbstractController
             'user/profile.html.twig',
             [
                 'user' => $this->getUser()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/edit", name="_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request) {
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserEditType::class, $user);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            dump($form);
+
+
+            $manager = $this->getDoctrine()->getManager();
+
+            //TODO make events listener
+            $user->setUpdatedAt(new \DateTime());
+            //TODO
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Your informations has been updated ');
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render(
+            'user/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user
             ]
         );
     }
