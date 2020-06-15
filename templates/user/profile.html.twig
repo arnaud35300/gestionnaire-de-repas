@@ -1,0 +1,103 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<main class="flex flex-col md:flex-row">
+
+
+		<section class="md:w-2/4">
+
+			<div class="flex flex-col p-4">
+
+				<div class="flex justify-center items-center">
+					<img src="https://image.flaticon.com/icons/svg/194/194938.svg" alt="avatar picture" class="w-3/4 lg:w-2/4 border-2 rounded-full border-black m-4"></img>
+			    </div>
+
+                <h2 class="text-2xl font-bold text-black text-center">{{ user.name|capitalize }}</h2>
+                <p class="my-3 text-center text-gray-600 text-lg">{{ user.email }}</p>                
+                <p class="my-3 text-center text-gray-500 text-md">registered since <span class="text-gray-600 tracking-widest">{{ user.createdAt|date('m-d-y') }}</span></p>                                
+		    </div>  
+
+            {# separator #}
+            <div class="flex justify-center">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+             <div class="flex flex-col p-4">
+                <p class="my-4 text-center text-black text-xl underline">Options</p>          
+            
+                <div class="flex justify-center items-center my-4">
+                    <a href="" alt="edit profile" class="btn hover:btn">Edit your profile</a>
+                </div>
+
+                <div class="flex justify-center items-center my-4">
+                    <a href="" alt="edit profile" class="btn hover:btn">Change your password</a>
+                </div>
+
+                <div class="flex justify-center items-center my-4">
+                    <a href="" alt="remove profile" class="text-center btn bg-red-500 hover:bg-red-700 ">Delete your account</a>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="md:w-2/4 xl:flex xl:flex-col xl:items-center">
+
+
+            {# separator #}
+            <div class="md:hidden flex justify-center">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+            <div class="flex flex-col p-4 xl:w-3/4">
+                <p class="my-4 text-center text-black text-xl underline">Opinion</p>  
+                <p class="my-3 text-center text-gray-600 text-lg">Your opinion is very important for us, that's why you can send us a <span class="text-blue-500 font-bold">message</span>!</p>                
+            
+                <form name="message-form" method="post" class="">
+
+                     <div class="flex flex-col">
+                        <label for="message" class="text-gray-700 text-lg">Write here</label>
+                        <textarea placeholder="I love your website..." value="" rows="5"  class="text-blue-400 shadow-md resize-y form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500"></textarea>
+                     </div>
+
+                    <div class="flex justify-end w-full">
+                        <button class="btn bg-green-400 hover:btn my-3" type="submit">
+                            Send !
+                        </button>
+                    </div>
+			    </form>
+            </div>
+
+            {# separator #}
+            <div class="flex justify-center xl:w-3/4">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+            <div class="flex flex-col p-4 xl:w-3/4">
+                <p class="my-4 text-center text-black text-xl underline">Help</p>  
+                <p class="my-3 text-center text-gray-600 text-lg">You are lost? you need help? Did you break the site? Don't worry, we're here for you. Write your <span class="text-blue-500 font-bold">concerns</span> above and we will respond to them very soon!</p>                
+            
+                <form name="contact-form" method="post" class="">
+
+                    <div class="flex flex-col">
+                        <label for="message" class="text-gray-700 text-lg">Write here</label>
+                        <textarea placeholder="My concerns is about..." value="" rows="5"  class="text-blue-400 shadow-md resize-y form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500"></textarea>
+                    </div>
+
+                    <div class="flex justify-end w-full">
+                        <button class="btn bg-green-400 hover:btn my-3" type="submit">
+                            Send !
+                        </button>
+                    </div>
+    			</form>
+
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('asset/js/profile.js') }}"></script>
+{% endblock %}

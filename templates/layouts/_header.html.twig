@@ -1,7 +1,9 @@
 <header>
 	<nav class="flex items-center justify-between flex-wrap bg-blue-400 p-6">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
-			<h1 class="text-xl font-title font-bold">Food<span class="text-black">Book</span>
+			<a href="{{ path('home')}}" alt="home page">
+                <h1 class="text-xl font-title font-bold">Food<span class="text-black">Book</span></h1>
+            </a>
 			</div>
 
 			<div class="block lg:hidden" id="button">
@@ -11,7 +13,7 @@
 				</button>
 			</div>
 
-			<div class="w-full block flex flex-col flex-grow lg:flex lg:flex-row lg:items-center lg:w-auto" id="menu">
+			<div style="display:none !important;" class="w-full block flex flex-col flex-grow lg:flex lg:flex-row lg:items-center lg:w-auto" id="menu">
 				<div class="text-lg lg:flex-grow">
 					<a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
 						Calendar
@@ -27,7 +29,7 @@
 			<div class="lg:flex lg:items-center">
 
             <div class="">
-			    <a href="{{ path('home')}}" alt="your profile" title="your profile">
+			    <a href="{{ path('user_profile')}}" alt="your profile" title="your profile">
                     <img src="https://image.flaticon.com/icons/svg/194/194938.svg" alt="avatar picture" class=" mr-5 w-10 border rounded-full border-white hover:border-transparent  mt-4 lg:mt-0 cursor-pointer"></img>
 			    </a>
             </div>
