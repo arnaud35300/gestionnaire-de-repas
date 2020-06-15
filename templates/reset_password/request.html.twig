@@ -1,22 +1,51 @@
-{% extends 'base.html.twig' %}
+{% extends 'visitor_base.html.twig' %}
 
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we we will send you a
-                link to reset your password.
-            </small>
-        </div>
+	<div class="flex h-screen">
+		{% set button_link = 'login' %}
+		{% set button_content = 'Already register?' %}
+		{% set image_link = 'assets/img/reset_password.jpg' %}
+		{% set image_description_start = 'Try to remember your' %}
+        {% set image_description_word = 'password' %}
+        {% set image_description_end = 'for the next time' %} 
+		{% include "layouts/_presentation.html.twig" %}
+	</div>
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
-{% endblock %}
+	<div class="flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Step 1 - Retrieve your email</p>
+
+			<p class="" href="{{ path('forgot_password_request') }}">Already have an account?
+				<a class="text-blue-400" href="{{ path('user_add') }}">Register</a>
+			</p>
+
+			{# !form #}
+
+			{% for flashError in app.flashes('reset_password_error') %}
+				<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+			{% endfor %}
+
+			{{ form_start(requestForm) }}
+			<div class="flex flex-col my-4">
+				{{ form_label(requestForm.email, 'Email', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(requestForm.email, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(requestForm.email) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(requestForm.email) }}</div>
+				{% endif %}
+			</div>
+
+			<div class="flex justify-end w-full">
+				<button class="btn hover:btn my-3" type="submit">
+					Send password reset email
+				</button>
+			</div>
+			{{ form_end(requestForm) }}
+		</div>
+	</div>
+</div>{% endblock %}
