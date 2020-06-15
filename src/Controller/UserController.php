@@ -109,10 +109,6 @@ class UserController extends AbstractController
                     
                     return $this->redirectToRoute('user_edit');
                 }
-                // $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                // $file->move($destination, $filename);
-                
-                // $user->setPath($filename);
             }
 
             //TODO make events listener
