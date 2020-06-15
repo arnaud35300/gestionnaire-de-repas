@@ -3,33 +3,40 @@
 {% block body %}
 	<main class="flex flex-col lg:flex-row ">
 
+        {# separator #}
+		<div class="lg:hidden flex justify-center">
+			<div class="h-1 bg-gray-600 w-4/5"></div>
+		</div>
+
 		<section class="lg:w-2/4">
 
-            {% include "layouts/_user_info.html.twig" %}			
+			{% include "layouts/_user_info.html.twig" %}
 
-            {# separator #}
-            <div class="flex justify-center">
-                <div class="h-1 bg-gray-600 w-4/5"></div>
-            </div>
+			{# separator #}
+			<div class="flex justify-center">
+				<div class="h-1 bg-gray-600 w-4/5"></div>
+			</div>
 
-            {% include "layouts/_options_profile_edit.html.twig" %}
+			{% include "layouts/_options_profile_edit.html.twig" %}
 
-        </section>
+		</section>
 
-        <section class="lg:w-2/4 xl:flex xl:flex-col flex  items-center justify-center">
 
-            {# separator #}
-            <div class="lg:hidden flex justify-center">
-                <div class="h-1 bg-gray-600 w-4/5"></div>
-            </div>
+		<section
+			class="order-first my-5 lg:my-0 lg:order-last lg:w-2/4 xl:flex xl:flex-col flex  items-center justify-center">
 
-            {% include "layouts/_edit_profile.html.twig" %}
-           
-        </section>
-        
-    </main>
+			{# separator #}
+			<div class="lg:hidden flex justify-center">
+				<div class="h-1 bg-gray-600 w-4/5"></div>
+			</div>
+
+			{% include "layouts/_edit_profile.html.twig" %}
+
+		</section>
+
+	</main>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('assets/js/profile.js') }}"></script>
+	<script src="{{ asset('assets/js/edit_profile.js') }}"></script>
 {% endblock %}
