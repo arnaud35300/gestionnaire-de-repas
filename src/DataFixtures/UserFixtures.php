@@ -35,6 +35,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
                 $this->encoder->encodePassword($user, 'password')
             )
             ->setRole($this->getReference(RoleFixtures::USER_ROLE_REFERENCE))
+            ->setStatus(true)
             ->setCreatedAt(new \DateTime());
 
         $admin = new User();
@@ -46,6 +47,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
                 $this->encoder->encodePassword($admin, 'password')
             )
             ->setRole($this->getReference(RoleFixtures::ADMIN_ROLE_REFERENCE))
+            ->setStatus(true)
             ->setCreatedAt(new \DateTime());
 
         $manager->persist($user);
