@@ -47,8 +47,11 @@ class UserController extends AbstractController
 
             //TODO make events listener
             $role = $this->getDoctrine()->getRepository(Role::class)->findOneByName('ROLE_USER');
-            $user->setCreatedAt(new \DateTime());
-            $user->setRole($role);
+            $user
+                ->setCreatedAt(new \DateTime())
+                ->setRole($role)
+                ->setPath('user_profile.svg')
+                ->setStatus(true);
             //TODO
 
             $manager->persist($user);
