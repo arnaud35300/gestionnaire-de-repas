@@ -16,17 +16,19 @@ class RoleFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager)
     {
         $adminRole = new Role();
-        $adminRole->setName('ROLE_ADMINISTRATOR');
-        $adminRole->setCreatedAt(new \DateTime());
+        $adminRole
+            ->setName('ROLE_ADMINISTRATOR')
+            ->setCreatedAt(new \DateTime());
 
         $userRole = new Role();
-        $userRole->setName('ROLE_USER');
-        $userRole->setCreatedAt(new \DateTime());
+        $userRole
+            ->setName('ROLE_USER')
+            ->setCreatedAt(new \DateTime());
 
         $manager->persist($adminRole);
         $manager->persist($userRole);
         $manager->flush();
-        
+
         $this->addReference(self::ADMIN_ROLE_REFERENCE, $adminRole);
         $this->addReference(self::USER_ROLE_REFERENCE, $userRole);
     }

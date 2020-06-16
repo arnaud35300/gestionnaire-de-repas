@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+		{# fonts #}
+        <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+        <title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('tailwind') }}
+			{{ encore_entry_link_tags('animate') }}
+		{% endblock %}
+	</head>
+	<body class="font-global">
+
+		{% block header %}
+			{% include "layouts/_header.html.twig" %}
+		{% endblock %}
+		{% block flash %}
+			{% include "layouts/_flash_message.html.twig" %}
+		{% endblock %}
+		{% block body %}{% endblock %}
+
+		{% block javascripts_header %}
+			<script src="{{ asset('assets/js/menu.js') }}"></script>
+		{% endblock %}
+
+		{% block javascripts %}{% endblock %}
+
+		<script src="{{ asset('assets/js/flash_message.js') }}"></script>
+	</body>
 </html>

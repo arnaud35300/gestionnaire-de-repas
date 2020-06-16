@@ -1,32 +1,58 @@
-{% extends 'base.html.twig' %}
+{% extends 'visitor_base.html.twig' %}
 
 {% block title %}Log in!
 {% endblock %}
 
+
 {% block body %}
-	<form method="post">
-		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		{% endif %}
 
-		<label for="inputEmail">Email</label>
-		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-		<label for="inputPassword">Password</label>
-		<input type="password" name="password" id="inputPassword" class="form-control" required>
+	<div class="flex h-screen">
+		{% set button_link = 'user_add' %}
+		{% set button_content = 'Join us now!' %}
+		{% include "layouts/_presentation.html.twig" %}
+	</div>
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+	<div class="h-screen flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
 
-		<div class="checkbox mb-3">
-			<label>
-				<input type="checkbox" name="_remember_me">
-				Remember me
-			</label>
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Register</p>
+
+			<a class="text-blue-400" href="{{ path('forgot_password_request') }}">Forgot your password?</a>
+
+			<p class="" href="{{ path('forgot_password_request') }}">You are a new user?
+				<a class="text-blue-400" href="{{ path('user_add') }}">Create a account</a>
+			</p>
+			<form method="post" class="">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				<div class="flex flex-col my-4">
+					<label for="inputEmail">Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500" required autofocus>
+				</div>
+
+				<div class="flex flex-col my-4">
+					<label for="inputPassword">Password</label>
+					<input type="password" name="password" id="inputPassword" class="form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500" required>
+				</div>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+				<div class="checkbox mb-3">
+					<label class="text-gray-600">
+						<input type="checkbox" name="_remember_me">
+						Remember me
+					</label>
+				</div>
+
+				<div class="flex justify-end w-full">
+					<button class="btn hover:btn my-3" type="submit">
+						Sign In
+					</button>
+				</div>
+			</form>
 		</div>
-
-
-		<button class="btn btn-lg btn-primary" type="submit">
-			Sign in
-		</button>
-	</form>
-	<a href="{{ path('forgot_password_request') }}">Forgot your password?</a>
-{% endblock %}
+	</div>
+</div>{% endblock %}

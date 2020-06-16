@@ -23,7 +23,7 @@ security:
                     - App\Security\LoginFormAuthenticator
             remember_me:
                 secret:   '%kernel.secret%'
-                lifetime: 604800 # 1 week in seconds
+                lifetime: 2592000 # 1 week in seconds
                 path:     /
             logout: 
                 path: logout
@@ -40,7 +40,8 @@ security:
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user/add, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/admin, roles: ROLE_ADMINISTRATOR }
         
     role_hierarchy:

@@ -1,12 +1,55 @@
-{% extends 'base.html.twig' %}
+{% extends 'visitor_base.html.twig' %}
 
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
-{% endblock %}
+	<div class="flex h-screen">
+		{% set button_link = 'login' %}
+		{% set button_content = 'Already register?' %}
+		{% set image_link = 'assets/img/tunnel.jpg' %}
+		{% set image_description_start = 'Here is finally the ' %}
+        {% set image_description_word = 'end' %}
+        {% set image_description_end = ' of the tunnel' %} 
+		{% include "layouts/_presentation.html.twig" %}
+	</div>
+
+	<div class="flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Step 3 - Update your password</p>
+
+			{% for flashError in app.flashes('reset_password_error') %}
+				<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+			{% endfor %}
+
+			{{ form_start(resetForm) }}
+			<div class="flex flex-col my-4">
+				{{ form_label(resetForm.plainPassword.first, 'New password', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(resetForm.plainPassword.first) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(resetForm.plainPassword.first) }}</div>
+				{% endif %}
+			</div>
+
+            <div class="flex flex-col my-4">
+				{{ form_label(resetForm.plainPassword.second, 'Repat password', { 'label_attr': {'class': ''}}) }}
+				{{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+
+				{% if form_errors(resetForm.plainPassword.second) is not same as('') %}
+					<div class="alert alert-danger mx-1">{{ form_errors(resetForm.plainPassword.second) }}</div>
+				{% endif %}
+			</div>
+
+
+			<div class="flex justify-end w-full">
+				<button class="btn hover:btn my-3" type="submit">
+					Update password
+				</button>
+			</div>
+			{{ form_end(resetForm) }}
+		</div>
+	</div>
+</div>{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main class="flex flex-col md:flex-row">
+
+		<section class="md:w-2/4">
+
+            {% include "layouts/_user_info.html.twig" %}			
+
+            {# separator #}
+            <div class="flex justify-center">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+            {% include "layouts/_options_profile.html.twig" %}
+
+        </section>
+
+        <section class="md:w-2/4 xl:flex xl:flex-col xl:items-center">
+
+            {# separator #}
+            <div class="md:hidden flex justify-center">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+            {% include "layouts/_opinions.html.twig" %}
+           
+            {# separator #}
+            <div class="flex justify-center xl:w-3/4">
+                <div class="h-1 bg-gray-600 w-4/5"></div>
+            </div>
+
+            {% include "layouts/_help.html.twig" %}
+
+        </section>
+        
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/profile.js') }}"></script>
+{% endblock %}

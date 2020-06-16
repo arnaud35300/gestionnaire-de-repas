@@ -12,9 +12,8 @@ class MainController extends AbstractController
      */
     public function home()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/MainController.php',
+        return $this->render('main/home.html.twig', [
+            'user' => $this->getUser()
         ]);
     }
 }

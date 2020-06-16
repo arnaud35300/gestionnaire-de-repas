@@ -1,0 +1,31 @@
+@tailwind base;
+
+@tailwind components;
+
+.alert {
+    @apply p-4 text-white text-lg bg-gray-400 my-2 rounded-lg mx-auto;
+}
+
+.alert-danger {
+    @apply bg-red-700;
+}
+
+.alert-success {
+    @apply bg-green-400;
+}
+
+.alert-info {
+    @apply bg-teal-400;
+}
+
+@variants hover {
+    .btn {
+        @apply bg-blue-700;
+    }
+}
+
+.btn {
+    @apply bg-blue-500 text-white rounded-md p-3 cursor-pointer font-bold;
+}
+
+@tailwind utilities;

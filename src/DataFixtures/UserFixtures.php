@@ -26,26 +26,33 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setName('user');
-        $user->setEmail('user@user.com');
-        $user->setPassword(
-            $this->encoder->encodePassword($user, 'password')
-        );
-        $user->setRole($this->getReference(RoleFixtures::USER_ROLE_REFERENCE));
-        $user->setCreatedAt(new \DateTime());
+
+        $user
+            ->setName('user')
+            ->setEmail('user@user.com')
+            ->setPath('user_profile.svg')
+            ->setPassword(
+                $this->encoder->encodePassword($user, 'password')
+            )
+            ->setRole($this->getReference(RoleFixtures::USER_ROLE_REFERENCE))
+            ->setStatus(true)
+            ->setCreatedAt(new \DateTime());
 
         $admin = new User();
-        $admin->setName('admin');
-        $admin->setEmail('admin@admin.com');
-        $admin->setPassword(
-            $this->encoder->encodePassword($admin, 'password')
-        );
-        $admin->setRole($this->getReference(RoleFixtures::ADMIN_ROLE_REFERENCE));
-        $admin->setCreatedAt(new \DateTime());
+        $admin
+            ->setName('admin')
+            ->setEmail('admin@admin.com')
+            ->setPath('user_profile.svg')
+            ->setPassword(
+                $this->encoder->encodePassword($admin, 'password')
+            )
+            ->setRole($this->getReference(RoleFixtures::ADMIN_ROLE_REFERENCE))
+            ->setStatus(true)
+            ->setCreatedAt(new \DateTime());
 
         $manager->persist($user);
         $manager->persist($admin);
-        
+
         $manager->flush();
 
         $this->addReference(self::ADMIN, $admin);

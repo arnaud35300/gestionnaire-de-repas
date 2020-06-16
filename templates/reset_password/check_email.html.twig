@@ -1,8 +1,33 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'visitor_base.html.twig' %}
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
-    <p>An email has been sent that contains a link that you can click to reset your password. This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('forgot_password_request') }}">try again</a>.</p>
-{% endblock %}
+
+	<div class="flex h-screen">
+		{% set button_link = 'login' %}
+		{% set button_content = 'Already register?' %}
+		{% set image_link = 'assets/img/email_send.jpg' %}
+		{% set image_description_start = 'It\'s your turn now, take a look at your' %}
+        {% set image_description_word = 'emails' %}
+        {% set image_description_end = 'and let\'s go to the last step' %} 
+		{% include "layouts/_presentation.html.twig" %}
+	</div>
+
+	<div class="flex w-full p-4 justify-center md:items-center md:w-2/4">
+		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
+			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
+			</h1>
+			<p class="font-bold text-3xl">Step 2 - Check your mailbox</p>
+
+            <p class="my-3 text-center text-gray-600 text-lg">An email has been sent that contains a link that you can click to reset your password. This link will expire in <span class="text-blue-500 font-bold">{{ tokenLifetime|date('g') }}</span> hour(s).</p>
+            <p class="my-3 text-center text-gray-600 text-lg">If you don't receive an email please check your spam folder or <a class="text-blue-500 font-bold" href="{{ path('forgot_password_request') }}">try again</a>.</p>
+
+
+			<div class="flex justify-end w-full">
+				<a  href="{{ path('forgot_password_request') }}" class="btn hover:btn my-3" type="submit">
+					Retry
+				</a>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

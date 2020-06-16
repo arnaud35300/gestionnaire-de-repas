@@ -1,0 +1,27 @@
+<div class="h-screen text-white hidden md:flex flex-col w-2/4 p-5 bg-blue-400 justify-center">
+
+	<h1 class="text-5xl font-title font-bold  absolute top-0">Food<span class="text-black">Book</span>
+	</h1>
+
+	<div class="flex flex-col justify-center max-w-5xl self-center">
+		<p class="font-bold text-xl mb-4">
+			{% if image_description_start is defined %}
+				{{ image_description_start }}
+				<span class="text-black font-title">
+				{{ image_description_word }}
+				</span>
+				{{ image_description_end }}
+			{% else %}
+			Discover the
+				<span class="font-title">Food<span class="text-black">Book</span>
+				</span>
+				meal manager and adopt it !
+			{% endif %}
+			</p>
+	<img class="rounded-lg shadow-lg" alt="interface screenshot" src="{{ image_link is defined ? asset(image_link) : 'https://vuejsexamples.com/content/images/2018/07/Administrative-interface.jpg' }}"></img>
+
+<div class="flex justify-end w-full">
+	<a href="{{ is_granted('IS_AUTHENTICATED_REMEMBERED') ? path('user_profile') : path(button_link) }}" class="btn  bg-green-400 my-6 hover:bg-green-500 shadow-lg" type="submit">
+		{{ is_granted('IS_AUTHENTICATED_REMEMBERED') ? 'back to profil' : button_content }}
+	</a>
+</div></div>

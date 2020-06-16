@@ -1,0 +1,11 @@
+<div class="flex flex-col p-4">
+
+	<div class="flex justify-center items-center">
+		<img id="profile_picture" src="{{ asset('data/user_profile_pictures/' ~ user.path)}}" alt="avatar picture" class="w-3/4 lg:w-2/4 h-full border-2 rounded-full border-black m-4"></img>
+</div>
+
+<h2 id="profile_name" style="overflow-wrap: break-word;" class="h-8 text-2xl font-bold text-black text-center">{{ user.name|capitalize }}</h2>
+<p class="my-3 text-center text-gray-600 text-lg">{{ user.email }}</p>
+<p class="my-3 text-center text-gray-500 text-md">registered since
+	<span class="text-gray-600 tracking-widest">{{ user.createdAt|date('m-d-y') }}</span>
+</p></div>

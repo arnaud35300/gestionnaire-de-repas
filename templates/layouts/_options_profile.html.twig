@@ -1,0 +1,21 @@
+<div class="flex flex-col p-4">
+	<p class="my-4 text-center text-black text-xl underline">Options</p>
+
+	<div class="flex justify-center items-center my-4">
+		<a href="{{ path('user_edit') }}" alt="edit profile" class="btn hover:btn">Edit your profile</a>
+	</div>
+
+	<div class="flex justify-center items-center my-4">
+		<a href="{{ path('user_edit_password') }}" alt="change password" class="btn hover:btn">Change your password</a>
+	</div>
+
+	<form style="" action="{{ path('user_delete') }}" method="POST" class="flex justify-center items-center my-4">
+		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+		<input type="hidden" name="_method" value="DELETE"/>
+		{% if app.user.status is same as(true) %}
+			<button class="text-center btn bg-red-500 hover:bg-red-700" type="submit">Delete your account</button>
+			{% else %}
+			<button class="text-center btn bg-teal-400 hover:bg-teal-700" type="submit">Retrieve your account</button>
+		{% endif %}
+	</form>
+</div>
