@@ -47,7 +47,7 @@ class UserDeleteSubscriber implements EventSubscriberInterface
         $content = $response->getContent();
 
         // cf : https://www.php.net/manual/fr/function.str-replace.php
-        $newContent = str_replace('<header>', '<div class="border-b-2 text-white font-bold border-red-800 text-center w-full bg-red-500"alt="profile page"><span class="text-red-800">Warning !</span> Your account will be deleted unless 24h</div>', $content);
+        $newContent = str_replace('<header>', '<div class="border-b-2 text-white font-bold border-red-800 text-center w-full bg-red-500 z-10"><span class="text-red-800">Warning !</span> Your account will be deleted unless 24h</div>', $content);
 
         // On assigne le nouveau contenu à la réponse
         $response->setContent($newContent);

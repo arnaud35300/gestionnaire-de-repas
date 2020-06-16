@@ -1,7 +1,7 @@
 {% for label, messages in app.flashes(['success', 'info']) %}
-		{% for message in messages %}
-			<div class="animate__animated animate_backOutRight flash alert alert-{{ label }} mx-3">
-				{{ message }}
-			</div>
-		{% endfor %}
+	{% for message in messages %}
+		<div style="z-index: -1;" class="relative flash alert alert-{{ label }} mx-3 animate__animated animate__backOutUp animate__delay-5s">
+			{{ message }}
+		</div>
+	{% endfor %}
 {% endfor %}
