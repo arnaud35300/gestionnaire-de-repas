@@ -47,7 +47,7 @@ class UserDeleteCommand extends Command
         $this
             ->setDescription('Delete users with status 0.')
             ->setHelp('This command allows you to delete a user...')
-            ->addOption('dump', null, InputOption::VALUE_NONE, 'Displays more information');
+            ->addOption('email', null, InputOption::VALUE_REQUIRED, 'Delete one user thanks to his email');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -56,7 +56,12 @@ class UserDeleteCommand extends Command
 
         $io->section('Delete users');
 
-        $users = $this->userRepository->findByStatus(false);
+        if ($input->getOption('email')) {
+            $users = $this->userRepository->findByEmail($input->getOption('email'));
+        }
+        else {
+            $users = $this->userRepository->findByStatus(false);
+        }
 
         if (empty($users)) {
             $io->success('No users to delete.');

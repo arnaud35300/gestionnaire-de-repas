@@ -3,12 +3,19 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Service\UserFile;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class Uploader
 {
     const EXTENSIONS = ['jpg', 'jpeg', 'png', 'svg'];
 
+    private $userFile;
+
+    public function __construct(UserFile $userFile )
+    {
+        $this->userFile = $userFile;
+    }
     /**
      * Uploades an image within the public images folder.
      *  
@@ -35,8 +42,8 @@ class Uploader
         $image->fit($width);
         $image->save($path . '/' . $filename);
 
-        if ($user->getPath() !== 'user_profile.svg')
-            unlink($path . '/' . $user->getPath());
+        // delete last profile picture
+        $this->userFile->delete($user);
             
         $user->setPath($filename);
         return $errors;
