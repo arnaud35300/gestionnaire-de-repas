@@ -3,6 +3,8 @@ Encore
   .setOutputPath('public/build/')
   .setPublicPath('/build')
   .addStyleEntry('tailwind', './assets/css/tailwind.css')
+  .addStyleEntry('app', './assets/css/app.css')
+  .addStyleEntry('animate', './node_modules/animate.css/animate.css')
   // enable post css loader
   .enablePostCssLoader((options) => {
              options.config = {
