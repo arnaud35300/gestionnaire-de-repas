@@ -18,7 +18,6 @@ class UserDeleteSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event)
     {
-
         // On s'assure qu'on est sur la requête principale
         // cf : https://symfony.com/doc/current/components/http_kernel.html#sub-requests
         if (!$event->isMasterRequest())
@@ -39,8 +38,10 @@ class UserDeleteSubscriber implements EventSubscriberInterface
         // cf schéma : https://symfony.com/doc/current/components/http_kernel.html#the-workflow-of-a-request
         // A ce stade on peut modifier la réponse qui va être envoyée
 
+        if ($this->tokenStorage->getToken() === NULL || $this->tokenStorage->getToken()->getUser() === 'anon.')
+            return;
 
-        if ($this->tokenStorage->getToken()->getUser() === 'anon.' || $this->tokenStorage->getToken()->getUser()->getStatus())
+        if (!$this->tokenStorage->getToken()->isAuthenticated() || $this->tokenStorage->getToken()->getUser()->getStatus())
             return;
 
         $content = $response->getContent();
