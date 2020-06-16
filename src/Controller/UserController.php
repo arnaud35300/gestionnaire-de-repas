@@ -179,18 +179,30 @@ class UserController extends AbstractController
      */
     public function delete(Request $request)
     {
-        // disconnect current user
-        $session = new Session();
-        $session->invalidate();
-
         if ($this->isCsrfTokenValid('delete' . $this->getUser()->getId(), $request->request->get('_token'))) {
             $manager = $this->getDoctrine()->getManager();
-            $manager->remove($this->getUser());
+            $user = $this->getUser();
+
+            if ($user->getStatus()) {
+                $user->setStatus(false);
+                $message = 'Your account will be deleted in less than 24 hours';
+            }
+            else {
+                $user->setStatus(true);
+                $message = 'Your account will be not deleted';
+            }
+
+            $manager->persist($user);
             $manager->flush();
+
+            $this->addFlash('info', $message);
+
+            //TODO send email and add cront task to delete user
+
+            return $this->redirectToRoute('user_profile');
         }
 
-        $this->addFlash('delete', 'User account deleted');
-
-        return $this->redirectToRoute('login');
+        $this->addFlash('info', 'The token is not valid');
+        return $this->redirectToRoute('user_profile');
     }
 }

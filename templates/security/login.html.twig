@@ -15,9 +15,6 @@
 	<div class="h-screen flex w-full p-4 justify-center md:items-center md:w-2/4">
 		<div class="md:rounded-lg md:shadow-lg px-4 w-full md:3/4 max-w-xl">
 
-			{% for message in app.flashes('delete') %}
-				<div class="alert alert-info w- top-0"> {{ message }} </div>
-			{% endfor %}
 			<h1 class="md:hidden text-3xl text-white bg-blue-400 py-3 text-center font-title font-bold">Food<span class="text-black">Book</span>
 			</h1>
 			<p class="font-bold text-3xl">Register</p>

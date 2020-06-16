@@ -9,13 +9,13 @@
 		<a href="{{ path('user_edit_password') }}" alt="change password" class="btn hover:btn">Change your password</a>
 	</div>
 
-	<div class="flex justify-center items-center my-4">
-		<a href="" alt="remove profile" class="text-center btn bg-red-500 hover:bg-red-700 ">Delete your account</a>
-	</div>
-
-	<form style="display: inline-block;" action="{{ path('user_delete') }}" method="POST" class="flex justify-center items-center my-4">
+	<form style="" action="{{ path('user_delete') }}" method="POST" class="flex justify-center items-center my-4">
 		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
 		<input type="hidden" name="_method" value="DELETE"/>
-		<button class="text-center btn bg-red-500 hover:bg-red-700" type="submit">Delete your account</button>
+		{% if app.user.status is same as(true) %}
+			<button class="text-center btn bg-red-500 hover:bg-red-700" type="submit">Delete your account</button>
+			{% else %}
+			<button class="text-center btn bg-teal-400 hover:bg-teal-700" type="submit">Retrieve your account</button>
+		{% endif %}
 	</form>
 </div>
