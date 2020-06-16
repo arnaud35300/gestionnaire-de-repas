@@ -2,13 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Movie;
-use App\Repository\MovieRepository;
 use App\Repository\ResetPasswordRequestRepository;
 use App\Repository\UserRepository;
+use App\Service\UserFile;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\managerInterface;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -19,19 +16,28 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UserDeleteCommand extends Command
 {
     private $userRepository;
+
     private $resetPasswordRequestRepository;
+
     private $manager;
+
+    private $userFile;
 
     protected static $defaultName = 'app:delete-users';
 
     /**
      * cf : https://symfony.com/doc/current/console.html#getting-services-from-the-service-container
      */
-    public function __construct(UserRepository $userRepository, ResetPasswordRequestRepository $resetPasswordRequestRepository, EntityManagerInterface $manager)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        ResetPasswordRequestRepository $resetPasswordRequestRepository,
+        EntityManagerInterface $manager,
+        UserFile $userFile
+    ) {
         $this->userRepository = $userRepository;
         $this->resetPasswordRequestRepository = $resetPasswordRequestRepository;
         $this->manager = $manager;
+        $this->userFile = $userFile;
 
         parent::__construct();
     }
@@ -58,14 +64,17 @@ class UserDeleteCommand extends Command
         }
 
         foreach ($users as $user) {
-
+            // delete password request
             $resetPasswords = $this->resetPasswordRequestRepository->findByUser($user);
 
             foreach ($resetPasswords as $resetPassword)
                 $this->manager->remove($resetPassword);
 
-                $io->note('User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
-            //! delete user picture
+            // delete user picture
+            $this->userFile->delete($user);
+            // delete user
+
+            $io->note('User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
             $this->manager->remove($user);
         }
 
