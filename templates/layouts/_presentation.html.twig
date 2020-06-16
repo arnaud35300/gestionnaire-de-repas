@@ -21,7 +21,7 @@
 	<img class="rounded-lg shadow-lg" alt="interface screenshot" src="{{ image_link is defined ? asset(image_link) : 'https://vuejsexamples.com/content/images/2018/07/Administrative-interface.jpg' }}"></img>
 
 <div class="flex justify-end w-full">
-	<a href="{{ path(button_link) }}" class="btn  bg-green-400 my-6 hover:bg-green-500 shadow-lg" type="submit">
-		{{ button_content }}
+	<a href="{{ is_granted('IS_AUTHENTICATED_REMEMBERED') ? path('user_profile') : path(button_link) }}" class="btn  bg-green-400 my-6 hover:bg-green-500 shadow-lg" type="submit">
+		{{ is_granted('IS_AUTHENTICATED_REMEMBERED') ? 'back to profil' : button_content }}
 	</a>
 </div></div>

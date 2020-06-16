@@ -1,6 +1,7 @@
 {% extends 'visitor_base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Reset your password
+{% endblock %}
 
 {% block body %}
 
@@ -9,8 +10,8 @@
 		{% set button_content = 'Already register?' %}
 		{% set image_link = 'assets/img/reset_password.jpg' %}
 		{% set image_description_start = 'Try to remember your' %}
-        {% set image_description_word = 'password' %}
-        {% set image_description_end = 'for the next time' %} 
+		{% set image_description_word = 'password' %}
+		{% set image_description_end = 'for the next time' %}
 		{% include "layouts/_presentation.html.twig" %}
 	</div>
 
@@ -20,8 +21,15 @@
 			</h1>
 			<p class="font-bold text-3xl">Step 1 - Retrieve your email</p>
 
-			<p class="" href="{{ path('forgot_password_request') }}">Already have an account?
-				<a class="text-blue-400" href="{{ path('user_add') }}">Register</a>
+			<p class="" href="{{ path('forgot_password_request') }}">
+
+				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+					Back to your
+					<a class="text-blue-400" href="{{ path('user_profile') }}">profil</a>
+				{% else %}
+					Already have an account?
+					<a class="text-blue-400" href="{{ path('user_add') }}">Register</a>
+				{% endif %}
 			</p>
 
 			{# !form #}
@@ -33,7 +41,7 @@
 			{{ form_start(requestForm) }}
 			<div class="flex flex-col my-4">
 				{{ form_label(requestForm.email, 'Email', { 'label_attr': {'class': ''}}) }}
-				{{ form_widget(requestForm.email, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500'}}) }}
+				{{ form_widget(requestForm.email, {'attr': {'class': 'form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500', 'value': is_granted('IS_AUTHENTICATED_REMEMBERED') ? app.user.email : ''}}) }}
 
 				{% if form_errors(requestForm.email) is not same as('') %}
 					<div class="alert alert-danger mx-1">{{ form_errors(requestForm.email) }}</div>
