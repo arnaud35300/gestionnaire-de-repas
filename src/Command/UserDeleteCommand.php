@@ -58,8 +58,13 @@ class UserDeleteCommand extends Command
         }
 
         foreach ($users as $user) {
-            
-            $io->note('User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
+
+            $resetPasswords = $this->resetPasswordRequestRepository->findByUser($user);
+
+            foreach ($resetPasswords as $resetPassword)
+                $this->manager->remove($resetPassword);
+
+                $io->note('User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
             //! delete user picture
             $this->manager->remove($user);
         }
