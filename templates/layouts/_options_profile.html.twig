@@ -12,4 +12,10 @@
 	<div class="flex justify-center items-center my-4">
 		<a href="" alt="remove profile" class="text-center btn bg-red-500 hover:bg-red-700 ">Delete your account</a>
 	</div>
+
+	<form style="display: inline-block;" action="{{ path('user_delete') }}" method="POST" class="flex justify-center items-center my-4">
+		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+		<input type="hidden" name="_method" value="DELETE"/>
+		<button class="text-center btn bg-red-500 hover:bg-red-700" type="submit">Delete your account</button>
+	</form>
 </div>

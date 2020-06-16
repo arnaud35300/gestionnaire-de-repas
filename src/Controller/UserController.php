@@ -12,6 +12,7 @@ use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -144,7 +145,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         $form = $this->createForm(ChangePasswordFormType::class, null, ['reset_password' => true]);
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
@@ -171,5 +172,25 @@ class UserController extends AbstractController
                 'user' => $user
             ]
         );
+    }
+
+    /**
+     * @Route("/delete", name="_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request)
+    {
+        // disconnect current user
+        $session = new Session();
+        $session->invalidate();
+
+        if ($this->isCsrfTokenValid('delete' . $this->getUser()->getId(), $request->request->get('_token'))) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($this->getUser());
+            $manager->flush();
+        }
+
+        $this->addFlash('delete', 'User account deleted');
+
+        return $this->redirectToRoute('login');
     }
 }
