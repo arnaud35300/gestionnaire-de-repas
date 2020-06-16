@@ -64,7 +64,7 @@ class UserDeleteCommand extends Command
         }
 
         if (empty($users)) {
-            $io->success('No users to delete.');
+            $io->success('❌ No users to delete.');
             return Command::SUCCESS;
         }
 
@@ -79,13 +79,13 @@ class UserDeleteCommand extends Command
             $this->userFile->delete($user);
             // delete user
 
-            $io->note('User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
+            $io->note('🧑 User ' . $user->getId() . ' deleted. Email : ' . $user->getEmail());
             $this->manager->remove($user);
         }
 
         $this->manager->flush();
 
-        $io->success('Users has been deleted.');
+        $io->success('✔️  Users has been deleted.');
         return Command::SUCCESS;
     }
 }
