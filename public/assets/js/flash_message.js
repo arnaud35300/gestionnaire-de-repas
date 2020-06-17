@@ -1,13 +1,15 @@
 const flash = {
-    messages: document.querySelectorAll('.flash'),
     init: () => {
-            flash.deleteMessages()
+        flash.deleteMessages()
     },
     deleteMessages: () => {
-        flash.messages.forEach(message => {
-            const body = document.querySelector('body')
+        let messages = document.querySelectorAll('.flash')
+
+        messages.forEach(message => {
+            const container = document.querySelector('#flash-container')
+            console.log(container)
             setTimeout(() => {
-                body.removeChild(message)
+                container.removeChild(message)
             }, 5500)
         });
     }
