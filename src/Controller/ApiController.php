@@ -59,10 +59,8 @@ class ApiController extends AbstractController
         $manager->flush();
 
         return $this->json(
-            [
-                'information' => 'Message is send.'
-            ],
-            Response::HTTP_CREATED            
+            ['information' => 'Message is send.'],
+            Response::HTTP_CREATED
         );
     }
 
@@ -108,9 +106,7 @@ class ApiController extends AbstractController
         $manager->flush();
 
         return $this->json(
-            [
-                'information' => 'Message is send.'
-            ],
+            ['information' => 'Message is send.'],
             Response::HTTP_CREATED            
         );
     }

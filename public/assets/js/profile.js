@@ -30,7 +30,7 @@ var profileApp = {
             const res = await fetch(`../api/${path}`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    message: data
+                    content: data
                 }),
                 headers: {
                     'Content-type': 'application/json'
@@ -41,6 +41,7 @@ var profileApp = {
                 console.log(jsonData)
             } else {
                 console.error(`server response : ${res.status}`)
+                console.error(`${res}`)
             }
         } catch(error) {
             console.error(error)
