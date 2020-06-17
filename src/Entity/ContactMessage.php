@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactMessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Repository\ContactMessageRepository;
+
 
 /**
  * @ORM\Entity(repositoryClass=ContactMessageRepository::class)
@@ -19,6 +22,14 @@ class ContactMessage
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      max=200
+     * )
+     * 
+     * @Groups({"message"})
      */
     private $content;
 

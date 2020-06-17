@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\ContactMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,17 +27,43 @@ class ApiController extends AbstractController
     ): JsonResponse {
         $content = $request->getContent();
 
-        if ($json_decode($content) === null)
+        if (json_decode($content) === null)
             return $this->json(
                 ['information' => 'Invalid data format.'],
                 Response::HTTP_UNAUTHORIZED
             );
         
-        
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ApiController.php',
-        ]);
+        $contactMessage = $serialiser->deserialize(
+            $content, 
+            ContactMessage::class,
+            'json',
+            ['groups' => 'message']
+        );
+
+        $contactMessage
+            ->setUser($this->getUser())
+            ->setCreatedAt(new \DateTime)
+            ->setType('opinions');
+
+        $violations = $validator->validate($contactMessage);
+
+        if ($violations->count() > 0)
+            return $this->json(
+                $violations,
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->persist($contactMessage);
+        $manager->flush();
+
+        return $this->json(
+            [
+                'information' => 'Message is send.'
+            ],
+            Response::HTTP_CREATED            
+        );
     }
 
     /** 
@@ -46,9 +74,44 @@ class ApiController extends AbstractController
         SerializerInterface $serialiser,
         ValidatorInterface $validator
     ): JsonResponse {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ApiController.php',
-        ]);
+        $content = $request->getContent();
+
+        if (json_decode($content) === null)
+            return $this->json(
+                ['information' => 'Invalid data format.'],
+                Response::HTTP_UNAUTHORIZED
+            );
+        
+        $contactMessage = $serialiser->deserialize(
+            $content, 
+            ContactMessage::class,
+            'json',
+            ['groups' => 'message']
+        );
+
+        $contactMessage
+            ->setUser($this->getUser())
+            ->setCreatedAt(new \DateTime)
+            ->setType('help');
+
+        $violations = $validator->validate($contactMessage);
+
+        if ($violations->count() > 0)
+            return $this->json(
+                $violations,
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->persist($contactMessage);
+        $manager->flush();
+
+        return $this->json(
+            [
+                'information' => 'Message is send.'
+            ],
+            Response::HTTP_CREATED            
+        );
     }
 }
