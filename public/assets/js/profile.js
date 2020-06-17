@@ -25,8 +25,26 @@ var profileApp = {
             ${message}
         </div>`
     },
-    fetchFormData: (data, path) => {
-        
+    fetchFormData: async (data, path) => {
+        try {
+            const res = await fetch(`../api/${path}`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    message: data
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                const jsonData = await res.json
+                console.log(jsonData)
+            } else {
+                console.error(`server response : ${res.status}`)
+            }
+        } catch(error) {
+            console.error(error)
+        }
     }
 }
 
