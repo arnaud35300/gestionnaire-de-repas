@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\UserRepository;
@@ -61,6 +63,16 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ContactMessage::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $contactMessages;
+
+    public function __construct()
+    {
+        $this->contactMessages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -198,6 +210,37 @@ class User implements UserInterface
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContactMessage[]
+     */
+    public function getContactMessages(): Collection
+    {
+        return $this->contactMessages;
+    }
+
+    public function addContactMessage(ContactMessage $contactMessage): self
+    {
+        if (!$this->contactMessages->contains($contactMessage)) {
+            $this->contactMessages[] = $contactMessage;
+            $contactMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContactMessage(ContactMessage $contactMessage): self
+    {
+        if ($this->contactMessages->contains($contactMessage)) {
+            $this->contactMessages->removeElement($contactMessage);
+            // set the owning side to null (unless already changed)
+            if ($contactMessage->getUser() === $this) {
+                $contactMessage->setUser(null);
+            }
+        }
 
         return $this;
     }
