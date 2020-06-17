@@ -3,15 +3,20 @@
 	<p class="my-3 text-center text-gray-600 text-lg">Your opinion is very important for us, that's why you can send us a
 		<span class="text-blue-500 font-bold">message</span>!</p>
 
-	<form id="message-form" method="post">
+	<form id="opinions" method="post" class="ajax">
 
 		<div class="flex flex-col">
 			<label for="message" class="text-gray-700 text-lg">Write here</label>
 			<textarea placeholder="I love your website..." value="" rows="5" class="text-blue-400 shadow-md resize-y form-control border-b outline-none py-2 px-1 text-lg focus:border-b-2 focus:border-blue-500"></textarea>
 		</div>
 
-		<div class="flex justify-end w-full">
-			<button class="btn bg-green-400 hover:bg-green-600 my-3" type="submit">
+		<div class="flex justify-between w-full items-center py-2">
+			
+			<div id="error">
+			
+			</div>
+			
+			<button class="h-full btn bg-green-400 hover:bg-green-600 my-3" type="submit">
 				Send !
 			</button>
 		</div>
