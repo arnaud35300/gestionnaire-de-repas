@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Role;
 use App\Entity\Year;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -13,7 +12,6 @@ class YearFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        $currentDate = new \DateTime();
         $year = new Year();
         $year
             ->setName(
