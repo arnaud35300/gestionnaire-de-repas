@@ -69,9 +69,15 @@ class User implements UserInterface
      */
     private $contactMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $meals;
+
     public function __construct()
     {
         $this->contactMessages = new ArrayCollection();
+        $this->meals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -239,6 +245,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($contactMessage->getUser() === $this) {
                 $contactMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meal[]
+     */
+    public function getMeals(): Collection
+    {
+        return $this->meals;
+    }
+
+    public function addMeal(Meal $meal): self
+    {
+        if (!$this->meals->contains($meal)) {
+            $this->meals[] = $meal;
+            $meal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeal(Meal $meal): self
+    {
+        if ($this->meals->contains($meal)) {
+            $this->meals->removeElement($meal);
+            // set the owning side to null (unless already changed)
+            if ($meal->getUser() === $this) {
+                $meal->setUser(null);
             }
         }
 

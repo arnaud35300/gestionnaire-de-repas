@@ -42,6 +42,34 @@ class Meal
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Moment::class, inversedBy="meals")
+     */
+    private $moment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="meals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="meals")
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Month::class, inversedBy="meals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $month;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Year::class, inversedBy="meals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $year;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +131,66 @@ class Meal
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMoment(): ?Moment
+    {
+        return $this->moment;
+    }
+
+    public function setMoment(?Moment $moment): self
+    {
+        $this->moment = $moment;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMonth(): ?Month
+    {
+        return $this->month;
+    }
+
+    public function setMonth(?Month $month): self
+    {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    public function getYear(): ?Year
+    {
+        return $this->year;
+    }
+
+    public function setYear(?Year $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MonthRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Month
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="month", orphanRemoval=true)
+     */
+    private $meals;
+
+    public function __construct()
+    {
+        $this->meals = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,37 @@ class Month
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meal[]
+     */
+    public function getMeals(): Collection
+    {
+        return $this->meals;
+    }
+
+    public function addMeal(Meal $meal): self
+    {
+        if (!$this->meals->contains($meal)) {
+            $this->meals[] = $meal;
+            $meal->setMonth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeal(Meal $meal): self
+    {
+        if ($this->meals->contains($meal)) {
+            $this->meals->removeElement($meal);
+            // set the owning side to null (unless already changed)
+            if ($meal->getMonth() === $this) {
+                $meal->setMonth(null);
+            }
+        }
 
         return $this;
     }
