@@ -39,6 +39,11 @@ class Month
      */
     private $meals;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number;
+
     public function __construct()
     {
         $this->meals = new ArrayCollection();
@@ -112,6 +117,18 @@ class Month
                 $meal->setMonth(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

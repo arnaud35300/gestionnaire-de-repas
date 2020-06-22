@@ -13,11 +13,12 @@ class MonthFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::MONTHS as $value) {
+        foreach (self::MONTHS as $key => $value) {
 
             $month = new Month();
             $month
                 ->setName($value)
+                ->setNumber($key + 1)
                 ->setCreatedAt(new \DateTime());
 
             $manager->persist($month);

@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Year;
+use App\Repository\MonthRepository;
 use App\Repository\YearRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Throwable;
 
 class YearController extends AbstractController
 {
@@ -25,13 +25,18 @@ class YearController extends AbstractController
     /**
      * @Route("/year/{name}", name="year", methods={"GET"}, requirements={"name"="\d+"})
      */
-    public function year(Year $year = null)
-    {
+    public function year(
+        Year $year = null,
+        MonthRepository $monthRepository
+    ) {
         if ($year === null)
             throw $this->createNotFoundException('Year not found.');
+        
+        $months = $monthRepository->findAll();
 
         return $this->render('year/year.html.twig', [
-            'year' => $year
+            'year' => $year,
+            'months' => $months
         ]);
     }
 }
