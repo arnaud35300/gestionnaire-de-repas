@@ -1,27 +1,28 @@
 <?php
+
 namespace App\DataFixtures;
 
-use App\Entity\Type;
+use App\Entity\Moment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TypeFixtures extends Fixture implements FixtureGroupInterface
+class MomentFixtures extends Fixture implements FixtureGroupInterface
 {
-    const TYPE = ['Healthy', 'Neutral', 'Junk food', 'Gastronomy', 'Fat'];
+    const MOMENT = ['Breakfast', 'Lunch', 'Dinner'];
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::TYPE as $value) {
+        foreach (self::MOMENT as $value) {
 
-            $type = new Type();
-            $type
+            $moment = new Moment();
+            $moment
                 ->setName($value)
                 ->setCreatedAt(new \DateTime());
 
-            $manager->persist($type);
+            $manager->persist($moment);
         }
-        
+
         $manager->flush();
     }
 
