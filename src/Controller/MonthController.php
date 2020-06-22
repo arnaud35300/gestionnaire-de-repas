@@ -2,18 +2,26 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Year;
+use App\Entity\Month;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class MonthController extends AbstractController
 {
     /**
-     * @Route("/month", name="month")
+     * @Route("year/{name}/month/{number}", name="month", methods={"GET"}, requirements={"year"="\d+"})
+     * @Entity("month", expr="repository.findOneByNumber(number)")
      */
-    public function index()
+    public function month(Year $year = null, Month $month = null)
     {
-        return $this->render('month/index.html.twig', [
-            'controller_name' => 'MonthController',
+        if ($year = null || $month === null)
+            $this->createNotFoundException('Year and month not founded.');
+        
+        return $this->render('month/month.html.twig', [
+            'year'  => $year,
+            'month' => $month
         ]);
     }
 }
