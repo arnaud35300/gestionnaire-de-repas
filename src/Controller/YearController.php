@@ -15,7 +15,9 @@ class YearController extends AbstractController
      */
     public function calendar(YearRepository $yearRepository)
     {
-        $years = $yearRepository->findAllOrderByDesc();
+        $years = $yearRepository->findAllOrderByDesc(
+            (int) $this->getUser()->getCreatedAt()->format('Y')
+        );
 
         return $this->render('year/calendar.html.twig', [
             'years' => $years
@@ -31,11 +33,13 @@ class YearController extends AbstractController
     ) {
         if ($year === null)
             throw $this->createNotFoundException('Year not found.');
-        
-        if ($year->getName() === (int) (new \DateTime)->format('Y'))
-            $months = $monthRepository->findAllBeforeCurrentMonth();
-        else
-            $months = $monthRepository->findAll();
+
+        // if ($year->getName() === (int) $this->getUser()->getCreatedAt()->format('Y'))
+
+            if ($year->getName() === (int) (new \DateTime)->format('Y'))
+                $months = $monthRepository->findAllBeforeCurrentMonth();
+            else
+                $months = $monthRepository->findAll();
 
         return $this->render('year/year.html.twig', [
             'year' => $year,

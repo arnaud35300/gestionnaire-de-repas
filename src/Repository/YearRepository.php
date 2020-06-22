@@ -48,10 +48,12 @@ class YearRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllOrderByDesc()
+    public function findAllOrderByDesc($user)
     {
         return $this->createQueryBuilder('y')
+            ->andWhere('y.name >= :user')
             ->orderBy('y.name', 'DESC')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;
