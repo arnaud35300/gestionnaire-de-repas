@@ -35,9 +35,9 @@ class Month
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="month", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Day::class, mappedBy="month", orphanRemoval=true)
      */
-    private $meals;
+    private $days;
 
     /**
      * @ORM\Column(type="integer")
@@ -46,7 +46,7 @@ class Month
 
     public function __construct()
     {
-        $this->meals = new ArrayCollection();
+        $this->days = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,30 +91,30 @@ class Month
     }
 
     /**
-     * @return Collection|Meal[]
+     * @return Collection|Day[]
      */
-    public function getMeals(): Collection
+    public function getDays(): Collection
     {
-        return $this->meals;
+        return $this->days;
     }
 
-    public function addMeal(Meal $meal): self
+    public function addDay(Day $day): self
     {
-        if (!$this->meals->contains($meal)) {
-            $this->meals[] = $meal;
-            $meal->setMonth($this);
+        if (!$this->days->contains($day)) {
+            $this->days[] = $day;
+            $day->setMonth($this);
         }
 
         return $this;
     }
 
-    public function removeMeal(Meal $meal): self
+    public function removeDay(Day $day): self
     {
-        if ($this->meals->contains($meal)) {
-            $this->meals->removeElement($meal);
+        if ($this->days->contains($day)) {
+            $this->days->removeElement($day);
             // set the owning side to null (unless already changed)
-            if ($meal->getMonth() === $this) {
-                $meal->setMonth(null);
+            if ($day->getMonth() === $this) {
+                $day->setMonth(null);
             }
         }
 

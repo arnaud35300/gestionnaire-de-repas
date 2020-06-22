@@ -58,18 +58,6 @@ class Meal
      */
     private $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Month::class, inversedBy="meals")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $month;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Year::class, inversedBy="meals")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $year;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -167,30 +155,6 @@ class Meal
     public function setType(?Type $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getMonth(): ?Month
-    {
-        return $this->month;
-    }
-
-    public function setMonth(?Month $month): self
-    {
-        $this->month = $month;
-
-        return $this;
-    }
-
-    public function getYear(): ?Year
-    {
-        return $this->year;
-    }
-
-    public function setYear(?Year $year): self
-    {
-        $this->year = $year;
 
         return $this;
     }

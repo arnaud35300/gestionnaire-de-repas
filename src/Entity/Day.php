@@ -32,6 +32,18 @@ class Day
      */
     private $createdAt;
 
+     /**
+     * @ORM\ManyToOne(targetEntity=Month::class, inversedBy="days")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $month;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Year::class, inversedBy="days")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $year;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +81,30 @@ class Day
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMonth(): ?Month
+    {
+        return $this->month;
+    }
+
+    public function setMonth(?Month $month): self
+    {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    public function getYear(): ?Year
+    {
+        return $this->year;
+    }
+
+    public function setYear(?Year $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }
