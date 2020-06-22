@@ -70,4 +70,15 @@ class DayRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByIdCustom($id)
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.year', 'y')
+            ->innerJoin('d.month', 'm')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
