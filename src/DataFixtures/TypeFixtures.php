@@ -1,26 +1,26 @@
 <?php
-
 namespace App\DataFixtures;
 
 use App\Entity\Month;
+use App\Entity\Type;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class MonthFixtures extends Fixture implements FixtureGroupInterface
+class TypeFixtures extends Fixture implements FixtureGroupInterface
 {
-    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const TYPE = ['Healthy', 'Neutral', 'Junk food', 'Gastronomy', 'Fat'];
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::MONTHS as $value) {
+        foreach (self::TYPE as $value) {
 
-            $month = new Month();
-            $month
+            $type = new Type();
+            $type
                 ->setName($value)
                 ->setCreatedAt(new \DateTime());
 
-            $manager->persist($month);
+            $manager->persist($type);
         }
         
         $manager->flush();
@@ -28,6 +28,6 @@ class MonthFixtures extends Fixture implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-        return ['date-group'];
+        return ['meal-group'];
     }
 }
