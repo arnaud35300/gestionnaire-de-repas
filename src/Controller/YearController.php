@@ -34,12 +34,17 @@ class YearController extends AbstractController
         if ($year === null)
             throw $this->createNotFoundException('Year not found.');
 
-        // if ($year->getName() === (int) $this->getUser()->getCreatedAt()->format('Y'))
-
-            if ($year->getName() === (int) (new \DateTime)->format('Y'))
-                $months = $monthRepository->findAllBeforeCurrentMonth();
-            else
-                $months = $monthRepository->findAll();
+        if ($year->getName() === (int) (new \DateTime)->format('Y'))
+            /* 
+                dont't display month before user register date if the year is the year of user register
+            */
+            $months = $monthRepository->findAllBeforeCurrentMonth(
+                $year->getName() === (int) $this->getUser()->getCreatedAt()->format('Y') ?
+                $this->getUser()->getCreatedAt()->format('n') :
+                null
+            );
+        else
+            $months = $monthRepository->findAll();
 
         return $this->render('year/year.html.twig', [
             'year' => $year,

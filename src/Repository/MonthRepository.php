@@ -48,10 +48,12 @@ class MonthRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllBeforeCurrentMonth()
+    public function findAllBeforeCurrentMonth(?int $user = 0)
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.number <= MONTH(CURRENT_TIMESTAMP())')
+            ->andWhere('m.number >= :user')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;
