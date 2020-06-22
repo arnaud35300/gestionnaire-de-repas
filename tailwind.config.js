@@ -7,7 +7,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        fof: "#fof"
+        fof: "#fof",
+        sable: {
+          '100': "#EDB564",
+          '200': '#A16E23'
+        }
       }
     },
   },

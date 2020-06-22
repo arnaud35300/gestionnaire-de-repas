@@ -8,16 +8,16 @@
 
 		{# separator #}
 		<div class="flex justify-center">
-			<div class="h-1 bg-blue-400 w-4/5"></div>
+			<div class="h-1 bg-gray-800 w-4/5"></div>
 		</div>
 
-		{% for month in months %}
-			<div class="">
-				<p class="my-4 text-center text-black text-xl underline">
-					<a href="{{ path('month', {'name': year.name, 'number': month.number} ) }}" alt="month">{{ month.name }}</a>
-				</p>
-			</div>
-		{% endfor %}
+		<div class="flex flex-row p-4 w-full flex-wrap justify-center ">
 
+			{% for month in months %}
+				<div class="bg-sable-100 m-3 rounded-md w-full lg:w-1/3 hover:bg-sable-200 text-center">
+					<a class="block py-8 h-full w-full text-white text-2xl hover:underline" href="{{ path('month', {'name': year.name, 'number': month.number} ) }}" alt="year">{{ month.name }}</a>
+				</div>
+			{% endfor %}
+		</div>
 	</main>
 {% endblock %}
