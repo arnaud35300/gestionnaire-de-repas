@@ -51,7 +51,7 @@ class MonthRepository extends ServiceEntityRepository
     public function findAllBeforeCurrentMonth()
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.number >= MONTH(NOW())')
+            ->andWhere('m.number <= MONTH(CURRENT_TIMESTAMP())')
             ->getQuery()
             ->getResult()
         ;
