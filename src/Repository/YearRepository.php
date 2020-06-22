@@ -47,4 +47,13 @@ class YearRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllOrderByDesc()
+    {
+        return $this->createQueryBuilder('y')
+            ->orderBy('y.name', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
