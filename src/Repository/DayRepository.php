@@ -47,4 +47,27 @@ class DayRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     *  SELECT * FROM `day`
+     *  INNER JOIN year on day.year_id = year.id
+     *  INNER JOIN month on day.month_id = month.id
+     *  WHERE month.number = ? AND year.name = ?
+     *
+     * @param [type] $year
+     * @param [type] $month
+     * @return void
+     */
+    public function findAllByYearAndMonth($year, $month)
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.year', 'y')
+            ->andWhere('y = :year')
+            ->innerJoin('d.month', 'm')
+            ->andWhere('m = :month')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->getQuery()
+            ->getResult();
+    }
 }
