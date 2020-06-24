@@ -58,6 +58,12 @@ class Meal
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Day::class, inversedBy="meals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $day;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +161,18 @@ class Meal
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDay(): ?Day
+    {
+        return $this->day;
+    }
+
+    public function setDay(?Day $day): self
+    {
+        $this->day = $day;
 
         return $this;
     }

@@ -65,6 +65,7 @@ class DayRepository extends ServiceEntityRepository
             ->andWhere('y = :year')
             ->innerJoin('d.month', 'm')
             ->andWhere('m = :month')
+            ->addOrderBy('d.createdAt', 'DESC')
             ->setParameter('year', $year)
             ->setParameter('month', $month)
             ->getQuery()
